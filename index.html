@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Js</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="ifElse" >        
+        <h3>If else</h3>
+        <!---FIRST--->
+        <div class="if-else-first">   
+            <input type="text" v-model="numberFlat" placeholder="Введите номер квартиры">
+            <button v-on:click="entranceFlat" >Task 1</button>
+        </div>  
+        <!---SECOND--->
+        <div class="if-else-second">
+            <input type="text" v-model="LoginIfElse2"  placeholder="Введите логин">
+            <input type="text" v-model="PasswordIfElse2" placeholder="Введите пароль">
+            <button v-on:click="authorize">Task 2</button>
+        </div>
+        <!---THIRD--->
+        <div class="if-else-third">
+           <input type="text" v-model="AgeIfElse3"  placeholder="Введите возраст">
+           <button v-on:click="CheckAge">Task 3</button>
+        </div>
+        <!---FOURTH--->
+        <div class="if-else-fourth">
+            <input type="text" v-model="ExperienceIfElse4"  placeholder="Введите стаж">
+            <button v-on:click="CheckExperience">Task 4</button>
+        </div>
+    </div>
+    
+    <div id="cycles">    
+        <h3>Cycles</h3>    
+        <!---FIRST--->
+        <button class="cycle-first" >Task 1</button>
+        <!---SECOND--->
+        <button class="cycle-second">Task 2</button>
+        <!---THIRD--->
+        <button class="cycle-third">Task 3</button>
+        <!---FOURTH--->
+        <button class="cycle-fourth">Task 4</button>
+        <!---FIFTH--->
+        <button class="cycle-fifth">Task 5</button>
+        <!---SIXTH--->
+        <div class="cycle-sixth">   
+            <textarea v-model="multiplicationOnFive" cols="10" rows="10"></textarea>
+            <button v-on:click="MultiFive" >Task 6</button>
+        </div>  
+    </div> 
+    
+    <div id="functionTask">
+        <h3>Function</h3> 
+        <div class="function-first">
+            <div class="picture">
+                <img src="img/1.jpg" alt="">
+                <img src="img/2.jpg" alt="">
+                <img src="img/3.jpg" alt="">
+            </div>  
+        </div>
+        <div class="function-second">
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quibusdam reiciendis amet, 
+                labore minima corrupti perferendis placeat deleniti, quam accusantium sit eum praesentium 
+                ipsum id vero pariatur! Iste nemo consectetur maxime.</p>
+             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quibusdam reiciendis amet, 
+                labore minima corrupti perferendis placeat deleniti, quam accusantium sit eum praesentium 
+                ipsum id vero pariatur! Iste nemo consectetur maxime.</p>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quibusdam reiciendis amet, 
+                labore minima corrupti perferendis placeat deleniti, quam accusantium sit eum praesentium 
+                ipsum id vero pariatur! Iste nemo consectetur maxime.</p>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quibusdam reiciendis amet, 
+                labore minima corrupti perferendis placeat deleniti, quam accusantium sit eum praesentium 
+                ipsum id vero pariatur! Iste nemo consectetur maxime.</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

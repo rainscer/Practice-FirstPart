@@ -1,0 +1,19 @@
+body {
+    background-color: plum;
+}
+#ifElse{
+    margin: 20px 30px;
+    line-height: 35px;
+}
+#cycles{
+    margin: 20px 30px;
+    line-height: 30px;       
+}
+#functionTask{
+    margin: 20px 30px;
+}
+.picture{
+    display: flex;   
+    justify-content: space-between;
+    padding: 50px 100px;
+}
