@@ -190,3 +190,174 @@ Array.prototype.forEach.call(paragraf, function(el) {
     el.innerHTML = `${paragrafNumber}. ${el.innerHTML}`;
 });
 
+var Funct = new Vue ({
+    el: '#functionTask',
+    data: {        
+        RanNumber: parseInt((Math.random()*10)),
+        tryNum: 0,
+        NumFun3:'',
+        PowFun3:'',
+        inputRanNum:'',
+        CheckAge5:'',
+    },
+    methods: {
+        NumInPow: function(){
+            if (this.NumFun3.trim() == '' || this.PowFun3.trim() == '' || !Number(this.NumFun3.trim()) || !Number(this.PowFun3.trim())){
+                alert('Введите число')
+            }
+            else{
+                alert( ` ${this.NumFun3.trim()} ^ ${this.PowFun3.trim()} = ${Math.pow(this.NumFun3, this.PowFun3)}`);
+            }
+        },        
+        CheckAge: function(){
+            if (this.CheckAge5.trim() > 16){
+                alert('ласкаво просимо');
+            }
+            else if (this.CheckAge5.trim() <=16 && this.CheckAge5.trim() > 0){
+                alert('ви ще молоді');
+            }
+        },
+        RandomNumber: function(){
+            console.log(`загаданное число - ${this.RanNumber}`)            
+            if (this.tryNum <3){
+                this.tryNum++;
+                if(Number(this.inputRanNum.trim()) > this.RanNumber){
+                    alert ('загаданое число меньше')
+                }
+                else if(Number(this.inputRanNum.trim()) < this.RanNumber){
+                    alert ('загаданое число больше')
+                }
+                else if(Number(this.inputRanNum.trim()) == this.RanNumber){
+                    alert (`Вы угадали! загаданное число - ${this.RanNumber}! Количество ${this.tryNum} попыток`)
+                    this.tryNum = 4;
+                }                
+            }
+            if (this.tryNum == 4){
+                this.tryNum = 0;
+                this.RanNumber = parseInt((Math.random()*10));
+            }
+            else if (this.tryNum >=3 ){
+                alert("Вы не угадали число");
+                this.tryNum = 0;
+                this.RanNumber = parseInt((Math.random()*10));
+            }
+        }
+    }
+});
+
+var LineTask = new Vue ({
+    el: '#LineTask',
+    data: {
+        img: [
+            {
+                name: 'purple',
+                link: 'img/1.jpg'
+            },
+            {
+                name: 'blue',
+                link: 'img/2.jpg'
+            },
+            {
+                name: 'space',
+                link: 'img/3.jpg'
+            }            
+        ],
+        accountNew: {
+            name: '',
+            surname: '',
+            password: '',
+            email: ''
+        },
+        line1:'',
+        line3:'',
+
+    },
+    methods: {
+        lineLength: function(){
+            alert(`Длина строки = ${this.line1.length}`)
+        },
+        URL: function(){           
+            if ((this.line3.trim().slice(0,8) == "https://")||( this.line3.trim().slice(0,7) == "http://")) {
+                alert(`URL - ${this.line3.trim().slice(8)}`);
+            }
+            else{
+                alert("Неверный формат ввода URL!");
+            }
+        },
+        CreateNewAccount: function(e){
+            e.preventDefault();  
+
+            this.accountNew.name = this.accountNew.name.trim();
+            this.accountNew.surname = this.accountNew.surname.trim();
+            this.accountNew.password = this.accountNew.password.trim();
+            this.accountNew.email = this.accountNew.email.trim();
+
+            if (this.accountNew.name == '' || this.accountNew.surname == '' || this.accountNew.password == '' || this.accountNew.email == ''){
+                alert('Заполните все поля');
+                return;
+            }
+            if (this.accountNew.password.length < 5){
+                alert('Слишком короткий пароль');
+                return;
+            }            
+            let emailcount = 0;
+            for (let i = 0; i < this.accountNew.email.length; i++){
+                if (i != this.accountNew.email.length && this.accountNew.email.slice(i,i+1) == '@'){
+                    emailcount++;                    
+                }
+                if (i != this.accountNew.email.length && this.accountNew.email.slice(i,i+1) == ' '){
+                    alert('Введите корректный email')
+                    return;
+                }     
+            }
+            if (emailcount < 1) {
+                alert('Введите корректный email')
+                return;
+            }
+            alert(`Новый аккаунт создан \n Имя: ${this.accountNew.name} \n Фамилия: ${this.accountNew.surname} \n Email: ${this.accountNew.email} `);
+        }
+    }
+});
+
+//localStorage.setItem();// write
+//localStorage.getItem();//ready
+//localStorage.removeItem(); // delete
+//localStorage.clear(); // all
+
+const students = [
+    {surname: 'Varakyta', name: 'Artur', age:'18'},
+    {surname: 'Grigoryan', name: 'Artur', age:'19'},
+    {surname: 'Payunin', name: 'Andrey', age:'18'},
+    {surname: 'Tolstov', name: 'Oleg', age:'19'},
+    {surname: 'Kabanov', name: 'Danil', age:'18'},
+];
+const numder = 123;
+const fruit = {
+    name: 'Pineapple',
+    color:'yellow',
+    wight: 5
+}
+
+const localSecond = document.querySelector(".local-second");
+const localFourth = document.querySelector(".local-fourth");
+
+localStorage.setItem('students', JSON.stringify(students))
+
+localStorage.setItem('fruit', JSON.stringify(fruit))
+
+let studentArr = localStorage.getItem('students')
+let fruitObj = localStorage.getItem('fruit')
+
+localSecond.addEventListener('click', function(){
+    studentArr = JSON.parse(studentArr)
+    console.log(studentArr)
+});
+
+localFourth.addEventListener('click', function(){
+    studentArr = JSON.parse(studentArr)    
+    fruitObj = JSON.parse(fruitObj)
+    console.log(studentArr)
+    console.log(localStorage.getItem('numder'))
+    console.log(fruitObj)
+})
+

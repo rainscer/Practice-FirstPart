@@ -11,9 +11,22 @@ body {
 }
 #functionTask{
     margin: 20px 30px;
+    line-height: 25px;
 }
 .picture{
     display: flex;   
     justify-content: space-between;
     padding: 50px 100px;
+}
+#LineTask{
+    margin: 20px 30px;
+    line-height: 25px;
+}
+.line-form{
+    line-height: 0px;
+    padding-top: 25px;
+    margin: 0 39% ;
+}
+#local-storage{
+    margin: 20px 30px;
 }
