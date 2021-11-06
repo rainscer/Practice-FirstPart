@@ -30,3 +30,9 @@ body {
 #local-storage{
     margin: 20px 30px;
 }
+.red{
+    color: red;
+}
+.black{
+    color: black;
+}

@@ -359,5 +359,5 @@ localFourth.addEventListener('click', function(){
     console.log(studentArr)
     console.log(localStorage.getItem('numder'))
     console.log(fruitObj)
-})
+});
 
