@@ -22,6 +22,7 @@ new Vue ({
     data: {
         quotes: quo,
         isAuthor:'true',
+        sortedQuotes:''
     },
     computed: {
         filteredQuotes: function(){
@@ -36,5 +37,6 @@ new Vue ({
         }
     }
 })
+
 
 

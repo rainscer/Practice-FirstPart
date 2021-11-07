@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Js - third day</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="thirdDay" >
+        <h3>Third Day</h3>
+        <h3>Список студентов</h3>
+        <div>
+            <p>Поиск</p>
+            <input type="text" v-model="filter_name" placeholder="Введите фамилию">
+        </div>
+        <br>
+        <table>
+            <tr>
+                <th>№</th>
+                <th>ФИО</th>
+                <th>Група</th>
+                <th>Год</th>
+                <th>ПР</th>
+                <th>Удалить</th>
+            </tr>
+            <tr v-for="(student, index) in stud" v-bind:style="student.name.toUpperCase().indexOf(filter_name.toUpperCase())>-1 && filter_name.length >0 ? 'background-color: lime'  : 'thirdNone'">
+                <td>{{student.id = index}}</td>
+                <td >{{student.name}}</td>
+                <td>{{student.group}}</td>
+                <td>{{student.year}}</td>
+                <td><input type="checkbox" v-model="student.pr1"></td>
+                <td><a v-on:click="deleteStud(student.id)">DeLeTe</a></td>
+            </tr>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="js/main3.js"></script>
+</body>
+</html>
