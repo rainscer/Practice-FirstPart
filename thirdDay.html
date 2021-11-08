@@ -34,6 +34,26 @@
                 <td><a v-on:click="deleteStud(student.id)">DeLeTe</a></td>
             </tr>
         </table>
+        <br>
+        <div>
+            <input v-model.trim="add_name"  placeholder="Введите ФИО">
+            <select v-model.trim="add_group" class="add_stud_group">
+                <option value="0"  disabled selected>Выберите группу</option>
+                <option value="1">РПЗ 18 1/9</option>
+                <option value="2">РПЗ 18 2/9</option>
+            </select>            
+            <input placeholder="Введите год " v-model.trim="add_year" >
+            ПР<input v-model.trim="add_pr1" class="add_stud_pr1" type="checkbox">
+            <button v-on:click="addStud" class="add_stud_butt">Add</button>
+        </div> 
+        <br>
+        <div v-bind:style="blockStyle" class="block" v-on:mouseover="newColor" v-on:mouseout="standartColor"></div>
+        <!--<span style="font-size:25px;">EnterAge:</span>
+        <input v-model.number="age" type="number">
+        <span style="font-size:25px;">EnterMessage:</span>
+        <input v-model.lazy="msg">
+        <span style="font-size:25px;"> EnterMessage : </span>
+        <input v-model.trim="message">-->
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="js/main3.js"></script>
