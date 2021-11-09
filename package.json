@@ -1,0 +1,32 @@
+{
+  "name": "first-day",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000P\u0000r\u0000a\u0000c\u0000t\u0000i\u0000c\u0000e\u0000-\u0000F\u0000i\u0000r\u0000s\u0000t\u0000P\u0000a\u0000r\u0000t\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode development",
+    "start": "webpack-dev-server --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rainscer/Practice-FirstPart.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rainscer/Practice-FirstPart/issues"
+  },
+  "homepage": "https://github.com/rainscer/Practice-FirstPart#readme",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "currency-codes": "^2.1.0",
+    "vue": "^2.6.14",
+    "vue-axios": "^3.4.0",
+    "webpack": "^5.62.2"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.4.0"
+  }
+}
