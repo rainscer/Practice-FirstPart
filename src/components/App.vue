@@ -16,9 +16,9 @@
                 <th>Удалить</th>
             </tr>
             <tr v-for="student in students" v-bind:key="student._id" v-bind:style="student.name.toUpperCase().indexOf(filter_name.toUpperCase())>-1 && filter_name.length >0 ? 'background-color: lime'  : 'thirdNone'">
-                <td v-if="!Number(nowChange) || nowChange != student._id">{{student.name}}</td>
+                <td v-if="nowChange != student._id">{{student.name}}</td>
                 <td v-if="nowChange == student._id"><input v-model="changeName"></td>
-                <td v-if="!Number(nowChange) || nowChange != student._id">{{student.group}}</td>                
+                <td v-if="nowChange != student._id">{{student.group}}</td>                
                  <td v-if="nowChange == student._id">
                  <select v-model="changeGroup">
                      <option value="RPZ 18 1/9">RPZ 18 1/9</option>
@@ -26,9 +26,9 @@
                  </select>
                 </td>
                 <td><img  :src="student.photo" class="stud_photo" alt=""></td>
-                <td v-if="!Number(nowChange) || nowChange != student._id"><input type="checkbox"  v-model="student.isDonePr"></td>
+                <td v-if="nowChange != student._id"><input type="checkbox"  v-model="student.isDonePr"></td>
                 <td v-if="nowChange == student._id"><input type="checkbox" v-model="changePr"></td>
-                <td >{{student.mark}}</td>
+                <td v-if="nowChange != student._id">{{student.mark}}</td>
                 <td v-if="nowChange == student._id"><input v-model="changeMark"></td>
                 <td><a v-on:click="deleteStud(student._id)">DeLeTe</a></td>
                 <button v-on:click="changeStud(student._id)"><img class="img-pencil" src="1.png"></button>
@@ -44,7 +44,8 @@
             </select>            
             ПР<input v-model.trim="add_pr1" type="checkbox">
             <input v-model.trim="add_mark" placeholder="Введите оценку"  >
-            <button v-on:click="addStud">Add</button>            
+            <button v-on:click="addStud">Add</button>  
+            <button v-on:click="updateStud">Update</button>               
         </div>          
     </div>
 </template>
@@ -62,15 +63,28 @@ export default{
         add_name: '',
         add_group: '0',
         add_photo: '0',
-        add_pr1: 'false',
+        add_pr1: false,
         add_mark:'',
         add_photo:'',
         fs_curr_num:'',
         conv_sum:'',
         nowChange:'',
+        changeName:"",
+        changeGroup:'',
+        changePr:'',
+        changeMark:'',
+
      } 
     },
-
+    mounted: function(){
+           Vue.axios.get("http://46.101.212.195:3000/students").then((response) => {
+           console.log(response.data)
+           this.students = response.data
+           })
+            // Vue.axios.get("https://api.monobank.ua/bank/currency").then((response) => {
+            // console.log(response.data);
+            // this.bank_info = response.data;             
+    },
      methods: {
          deleteStud: function(id) {   
             console.log(id)
@@ -99,7 +113,7 @@ export default{
              Vue.axios.post("http://46.101.212.195:3000/students",{
                  name: this.add_name,
                  group: this.add_group,                 
-                 isDonePr: false,
+                 isDonePr: this.add_pr1,
                  mark: this.add_mark,
                  photo: this.add_photo,
              })
@@ -115,32 +129,37 @@ export default{
             },
             changeStud: function(num){
               this.nowChange  = num;
-              this.changeName = this.student[num - 1].name
-              this.changeGroup= this.student[num - 1].group
+              
+              for(let i=0; i<this.students.length; i++ ){
+                  if(this.students[i]._id == num){
+                      this.changeName = this.students[i].name
+                      this.changeGroup = this.students[i].group
+                    this.changePr = this.students[i].isDonePr
+                    this.changeMark = this.students[i].mark
+                  }
+              }
+
             },
             updateStud: function(){
-                Vue.axios.put(`http://46.101.212.195:3000/students/${this.student[this.nowChange-1]._id}`,{
+                Vue.axios.put(`http://46.101.212.195:3000/students/${this.nowChange}`,{
                         name: this.changeName,
                         group: this.changeGroup,
                         isDonePr: this.changePr,
+                        mark: this.changeMark,
                     })
-                    this.stud[this.nowChange-1].name=this.changeName
-                    this.stud[this.nowChange-1].group=this.changeGroup
-                    this.stud[this.nowChange-1].isDonePr=this.changePr
+                    for(let i=0; i<this.students.length; i++){
+                         if(this.students[i]._id == this.nowChange){
+                             this.students[i].name=this.changeName
+                             this.students[i].group=this.changeGroup
+                             this.students[i].isDonePr=this.changePr
+                             this.students[i].mark=this.changeMark
+                         }
+                    }
+                    this.nowChange='';
             }
         },
 
-    mounted: function(){
-           Vue.axios.get("http://46.101.212.195:3000/students").then((response) => {
-           console.log(response.data)
-           this.students = response.data
-           }),
-            Vue.axios.get("https://api.monobank.ua/bank/currency").then((response) => {
-            console.log(response.data);
-            this.bank_info = response.data;          
-           
-        })    
-    }
+    
 }
 
 </script>
