@@ -4,60 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vue Js - third day</title>
+    <title>Vue Js</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="thirdDay" >
-        <h3>Third Day</h3>
-        <h3>Список студентов</h3>
-        <div>
-            <p>Поиск</p>
-            <input type="text" v-model="filter_name" placeholder="Введите фамилию">
-        </div>
-        <br>
-        <table>
-            <tr>
-                <th>№</th>
-                <th>ФИО</th>
-                <th>Група</th>
-                <th>Фото</th>
-                <th>ПР</th>
-                <th>Оценка</th>
-                <th>Удалить</th>
-            </tr>
-            <tr v-for="(student, index) in students" v-bind:style="student.name.toUpperCase().indexOf(filter_name.toUpperCase())>-1 && filter_name.length >0 ? 'background-color: lime'  : 'thirdNone'">
-                <td>{{student.id = index}}</td>
-                <td>{{student.name}}</td>
-                <td>{{student.group}}</td>
-                <td><img  :src="student.photo" class="stud_photo" alt=""></td>
-                <td><input type="checkbox" name="" v-model="student.isDonePr"></td>
-                <td>{{student.mark}}</td>
-                <td><a v-on:click="deleteStud(student.id)">DeLeTe</a></td>
-            </tr>
-        </table>
-        <br>
-        <div>
-            <input v-model.trim="add_name"  placeholder="Введите ФИО">
-            <select v-model.trim="add_group" >
-                <option value="0"  disabled selected>Выберите группу</option>
-                <option value="1">РПЗ 18 1/9</option>
-                <option value="2">РПЗ 18 2/9</option>
-            </select>            
-            ПР<input v-model.trim="add_pr1" type="checkbox">
-            <input v-model.trim="add_mark" placeholder="Введите оценку"  >
-            <button v-on:click="addStud">Add</button>
-        </div>  
-        <br>
-        <div class="convert">
-             <h3>Currency convert</h3>
-             <p>EUR: <span v-model=""></span></p>
-                <input v-model="fs_curr_num" type="text">                
-                <h4>to</h4>                                       
-                <button v-on:click="conventor">convert</button>
-                <span v-model="conv_sum" type="text" > </span>
-        </div>
-    </div>
-    <script src="main.js"></script>
+    <div id="app"></div>           
 </body>
+<script src="main.js"></script>
 </html>

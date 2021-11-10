@@ -40,3 +40,7 @@ body {
 .thirdNone{
     background-color: none;
 }
+.img-pencil {
+    height: 100px;
+    width: 100px;
+}
