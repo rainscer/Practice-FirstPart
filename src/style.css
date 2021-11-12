@@ -44,3 +44,12 @@ body {
     height: 100px;
     width: 100px;
 }
+.main-stud{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.stud-about p{
+    font-size: 18px;
+}

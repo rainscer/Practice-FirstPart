@@ -23,6 +23,7 @@
     "currency-codes": "^2.1.0",
     "vue": "^2.6.14",
     "vue-axios": "^3.4.0",
+    "vue-router": "^3.5.3",
     "webpack": "^5.62.2"
   },
   "devDependencies": {
