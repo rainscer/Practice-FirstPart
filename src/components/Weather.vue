@@ -1,56 +1,36 @@
 <template>
-   <div >
-
-    <div class="myWeatherBlock">   
-        <h2 class="blockName">Searched Location</h2>     
-        <div class="myWeatherHeader">            
-            <h2>{{weather.name}}</h2>
-            <img :src='"http://purecatamphetamine.github.io/country-flag-icons/3x2/" + weather.sys.country + ".svg"'>
-            <h2>[ {{weather.coord.lon}} | {{weather.coord.lat}} ]</h2>
+   <div class="main">
+    <div class="block">   
+        <div class="head">  
+            <div>
+                <h2 class="title">City:</h2>  
+            </div>
+            <div>
+                <h2>{{weather.name}} <img :src='"http://purecatamphetamine.github.io/country-flag-icons/3x2/" + weather.sys.country + ".svg"'></h2>                
+            </div>     
         </div>
-        <div class="infoCardList">
+
             <div class="card">
-                <h3>Weather </h3>
+                <h2>Weather </h2>
                 <p>Main: {{weather.weather[0].main}}</p>
                 <p>Description: {{weather.weather[0].description}}</p>
-            </div>
-
-            <div class="card">
-                <h3>Temperature </h3>
                 <p>Temperature: {{weather.main.temp}} °C</p>
                 <p>Feels like: {{weather.main.feels_like}} °C</p>
                 <p>Today: {{weather.main.temp_min}} °C - {{weather.main.temp_max}} °C</p>
-                <p></p>
-            </div>
-
-            <div class="card">
-                <h3>Wind </h3>
                 <p>Speed: {{weather.wind.speed}} m/s</p>
                 <p>Deg: {{weather.wind.deg}}°</p>
-            </div>
-
-            <div class="card">
-                <h3>Air indicators </h3>
                 <p>Pressure: {{weather.main.pressure}} hpa</p>
                 <p>Humidity: {{weather.main.humidity}} %</p>
-            </div>
-
-            <div class="card">
-                <h3>About </h3>
-                <p>Country: {{weather.sys.country}}</p>
                 <p>Sunrise: {{weather.sys.sunrise}}</p>
                 <p>Sunset: {{weather.sys.sunset}}</p>
                 <p>Timezone: {{weather.timezone}}</p>
             </div>
-        </div>
+        </div>            
     </div>
-</div>
 </template>
 
 <script>
 import axios from 'axios'
-import VueAxios from 'vue-axios'
-import VueRouter from 'vue-router'
 
 export default {
     props: {
@@ -59,15 +39,15 @@ export default {
     data: function() {
         return {
             weather: [],
-            API_KEY: '9928019ae35559d6d2cc2bf478ceead0',
-            link: "http://api.openweathermap.org/data/2.5/weather?",
+            API_KEY: '0e46206d6a6297fcc13660833176ccc9',
+            URL: "http://api.openweathermap.org/data/2.5/weather?",
         }
     },
     mounted: function(){
-        Vue.axios.get(`${this.link}q=${this.city}&appid=${this.API_KEY}`)
+        axios.get(`${this.URL}q=${this.city}&appid=${this.API_KEY}`)
             .then( res => {
                 this.weather = res.data;
-                console.log(`${this.link}${this.myLocation}&appid=${this.API_KEY}`)
+                console.log(`${this.URL}${this.myLocation}&appid=${this.API_KEY}`)
             })
             .then(() => {
                 this.weather.main.temp -= 273.15;
@@ -94,3 +74,62 @@ export default {
     },
 }
 </script>
+<style scoped>
+.main{
+        width: 100%;
+        margin: 0 auto;
+
+    }
+    .block{
+        margin: 0 auto;
+        width: 70%;
+        margin-top: 100px;
+        background: rgba(255, 255, 255, 0.26);
+        padding: 10px 20px;
+        border-radius: 15px;
+        box-shadow: 5px 5px 10px#000;
+    }
+    .head{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .block h2{
+        font-weight: normal;
+        text-align: center;
+    }
+    .head img{
+        position: relative;
+        width: 25px;
+        height: 25px;
+    }
+    .search{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+    .search input{
+        width: 50%;
+        height: 30px;
+        border-radius: 15px;
+        padding: 5px 10px;
+    }
+    .search button{
+        height: 40px;
+        width: 100px;
+        border-radius: 15px;
+        background: lightblue;
+    }
+    .card{
+        width: 30%;
+        background: lightblue;
+        border-radius: 20px;
+        padding: 20px 40px;
+        margin: 20px auto;
+        box-shadow: 10px 10px 20px #000;
+        text-align: center;
+    }
+    .block h2{
+        font-weight: bold;
+    }
+</style>

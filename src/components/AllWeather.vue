@@ -1,81 +1,57 @@
 <template>
-    <div class="contentWeatherMain">
-
-    <div class="myWeatherBlock">   
-        <h2 class="blockName">Your Location</h2>     
-        <div class="myWeatherHeader">            
-            <h2>{{weather.name}}</h2>
-            <img :src='"http://purecatamphetamine.github.io/country-flag-icons/3x2/" + weather.sys.country + ".svg"'>
-            <h2>[ {{weather.coord.lon}} | {{weather.coord.lat}} ]</h2>
+    <div class="main">
+        <button class="editTheme btn-edit">Edit</button>
+    <div class="block">               
+        <div class="head">  
+            <div>
+                <h2 class="title">Your Location</h2>  
+            </div>
+            <div>
+                <h2>{{weather.name}} <img :src='"http://purecatamphetamine.github.io/country-flag-icons/3x2/" + weather.sys.country + ".svg"'></h2>                
+            </div>     
         </div>
-        <div class="infoCardList">
+   
             <div class="card">
-                <h3>Weather <img src="/img/sun.png"></h3>
+                <h2>Information About Weather In Your City: </h2>
                 <p>Main: {{weather.weather[0].main}}</p>
                 <p>Description: {{weather.weather[0].description}}</p>
-            </div>
-
-            <div class="card">
-                <h3>Temperature <img src="/img/temperature.png"></h3>
                 <p>Temperature: {{weather.main.temp}} °C</p>
                 <p>Feels like: {{weather.main.feels_like}} °C</p>
                 <p>Today: {{weather.main.temp_min}} °C - {{weather.main.temp_max}} °C</p>
-                <p></p>
-            </div>
-
-            <div class="card">
-                <h3>Wind <img src="/img/wind.png"></h3>
                 <p>Speed: {{weather.wind.speed}} m/s</p>
                 <p>Deg: {{weather.wind.deg}}°</p>
-            </div>
-
-            <div class="card">
-                <h3>Air indicators <img src="/img/humidity.png"></h3>
                 <p>Pressure: {{weather.main.pressure}} hpa</p>
                 <p>Humidity: {{weather.main.humidity}} %</p>
-            </div>
-
-            <div class="card">
-                <h3>About <img src="/img/about.png"></h3>
-                <p>Country: {{weather.sys.country}}</p>
                 <p>Sunrise: {{weather.sys.sunrise}}</p>
                 <p>Sunset: {{weather.sys.sunset}}</p>
                 <p>Timezone: {{weather.timezone}}</p>
             </div>
-        </div>
-    </div>
-
-    <div class="myWeatherBlock">
-        <h2 class="blockName">Do you need the weather of another city? Find it!</h2>     
-        <div class="searchWeather">
-            <div class="add">
-                <input type="text" v-model="cityInput">
-                <router-link  :to="'/search-weather/'+cityInput" ><button > SEARCH </button></router-link>
+            <h2 class="title">Enter City For Search</h2>     
+            <div class="search">
+                <div class="add">
+                    <input type="text" v-model="inputCity">
+                    <router-link  :to="'/weather-info/'+inputCity" ><button > SeArCh </button></router-link>
+                </div>
             </div>
         </div>
-    </div>
-
- 
-
 </div>
 </template>
 
 <script>
-import Vue from 'vue'
+
 import axios from 'axios'
-import VueAxios from 'vue-axios'
-import VueRouter from 'vue-router'
+
 export default {
     data: function() {
         return {
-            API_KEY: '9928019ae35559d6d2cc2bf478ceead0',
-            link: "http://api.openweathermap.org/data/2.5/weather?",
+            API_KEY: '0e46206d6a6297fcc13660833176ccc9',
+            URL: "http://api.openweathermap.org/data/2.5/weather?",
             myLocation: 'Zaporizhzhia',
             weather: [],
             myLocationlatitude: '',
             myLocationlongitude: '',
-            cityInput: '',
-            cityList: [],
+            inputCity: '',
+            allCity: [],
         }
     },
     mounted:  function(){
@@ -83,11 +59,10 @@ export default {
             navigator.geolocation.getCurrentPosition(position => {
                 this.myLocationlatitude = `${position.coords.latitude}`
                 this.myLocationlongitude = `${position.coords.longitude}`
-                console.log(`${this.myLocationlatitude} | ${this.myLocationlongitude}`)
-                axios.get(`${this.link}lat=${this.myLocationlatitude}&lon=${this.myLocationlongitude}&appid=${this.API_KEY}`)
+                axios.get(`${this.URL}lat=${this.myLocationlatitude}&lon=${this.myLocationlongitude}&appid=${this.API_KEY}`)
                     .then( res => {
                         this.weather = res.data;
-                        console.log(`${this.link}${this.myLocation}&appid=${this.API_KEY}`)
+                        console.log(`${this.URL}${this.myLocation}&appid=${this.API_KEY}`)
                     })
                     .then(() => {
                         this.weather.main.temp -= 273.15;
@@ -138,114 +113,82 @@ export default {
             this.myLocationlatitude = `${position.coords.latitude}`
             this.myLocationlongitude = `${position.coords.longitude}`
             console.log(`${this.myLocationlatitude} | ${this.myLocationlongitude}`)
-        },
-            
+        },            
     }
 }
 </script>
 
 <style scoped>
-    .contentWeatherMain{
+    .main{
         width: 100%;
         margin: 0 auto;
+
     }
-    .myWeatherBlock{
+    .block{
         margin: 0 auto;
-        width: 80%;
-        margin-top: 20px;
-        background: rgba(76, 64, 121, 0.6);
-        border-radius: 10px;
+        width: 70%;
+        margin-top: 100px;
+        background: rgba(255, 255, 255, 0.26);
         padding: 10px 20px;
+        border-radius: 15px;
+        box-shadow: 5px 5px 10px#000;
     }
-    .myWeatherHeader{
+    .head{
         display: flex;
         align-items: center;
-        justify-content: space-around;
-        padding-bottom: 5px;
-        margin-bottom: 10px;
-        border-bottom: 1px solid #fff;
+        justify-content: space-between;
     }
-    .myWeatherBlock h2.blockName{
+    .block h2{
         font-weight: normal;
-        width: 100%;
-        border-bottom: 1px solid #fff;
-        padding-bottom: 5px;
-        margin-bottom: 10px;
         text-align: center;
     }
-    .myWeatherHeader h2{
-        font-weight: normal;
+    .head img{
+        position: relative;
+        width: 25px;
+        height: 25px;
     }
-    .myWeatherHeader img{
-        width: 30px;
-        height: 30px;
-        margin-right: auto;
-        margin-left: 20px;
-    }
-    .searchWeather{
+    .search{
         display: flex;
         align-items: center;
         justify-content: space-around;
-        flex-wrap: wrap;
     }
-    .searchWeather input{
-        width: 500px;
+    .search input{
+        width: 50%;
         height: 30px;
-        border: none;
-        padding: 0 10px;
-        margin: 0 10px;
-        background: rgb(105, 88, 167);
-        border-radius: 10px;
+        border-radius: 15px;
+        padding: 5px 10px;
+    }
+    .search button{
+        height: 40px;
+        width: 100px;
+        border-radius: 15px;
+        background: lightblue;
+    }
+    .card{
+        width: 30%;
+        background: lightblue;
+        border-radius: 20px;
+        padding: 20px 40px;
+        margin: 20px auto;
+        box-shadow: 10px 10px 20px #000;
+        text-align: center;
+    }
+    .block h2{
+        font-weight: bold;
+    }
+    .editTheme{
+        height: 40px;
+        width: 100px;
+        margin: 20px 50px;
+        border-radius: 5px ;
+        background: cornflowerblue;
         color: #fff;
         font-size: 18px;
     }
-    .searchWeather button{
-        border: none;
-        height: 30px;
-        width: 150px;
-        border-radius: 10px;
-        background: rgb(83, 182, 79);
-        color: #fff;
-        font-weight: 600;
+    .dark{
+        color: white;
     }
-    .searchWeather button:hover{
-        cursor: pointer;
-    }
-    .add,.search{
-        display: flex;
-        align-items: center;
-        margin: 5px 0;
-    }
-    /* -------------------- */
-    .infoCardList{
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-    }
-    .card{
-        width: 28%;
-        background: rgb(105, 88, 167);
-        border-radius: 10px;
-        padding: 10px 20px;
-        min-height: 75px;
-        position: relative;
-        margin: 10px auto;
-    }
-    .card h3{
-        font-weight: normal;
-        border-bottom: 1px solid #fff;
-        padding-bottom: 5px;
-        margin-bottom: 5px;
-        font-size: 20px;
-    }
-    .card p{
-        padding-top: 3px;
-    }
-    .card img{
-        width: 20px;
-        height: 20px;
-        position: absolute;
-        top: 12px;
-        right: 20px;
+    .light{
+        color:black;
     }
 </style>
