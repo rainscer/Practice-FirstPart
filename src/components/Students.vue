@@ -51,13 +51,15 @@
             <input v-model.trim="add_mark" placeholder="Введите оценку"  >
             <button v-on:click="addStud">Add</button>  
             <button v-on:click="updateStud">Update</button>               
-        </div>          
+        </div> 
+        <p>Количество студентов: {{getCount}}</p>                 
     </div>
 </template>
 
 <script>
 
 import Vue from 'vue'
+import Vuex from 'vuex';
 
 export default{
  data: function() {
@@ -85,6 +87,7 @@ export default{
            Vue.axios.get("http://46.101.212.195:3000/students").then((response) => {
            console.log(response.data)
            this.students = response.data
+           this.$store.commit('setCount', this.students.length)
            })
          
     },
@@ -161,8 +164,11 @@ export default{
                     this.nowChange='';
             }
         },
-
-    
+        computed:{
+            getCount(){
+                return this.$store.getters.getCount
+            }
+        }    
 }
 
 </script>

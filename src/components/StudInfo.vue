@@ -7,7 +7,8 @@
             <p>ПІБ: {{student.name}}</p>
             <p>Група: {{student.group}}</p>
             <p>Оцінка: {{student.mark}}</p>
-        </div>
+            <p>{{getCount}}</p> 
+        </div>        
     </div>
 </template>
 
@@ -28,6 +29,11 @@ export default {
             console.log(response.data)
             this.student=response.data;
         })
+    },
+    computed:{
+            getCount(){
+                return this.$store.getters['getCount']
+            }
     }
 }
 </script>
