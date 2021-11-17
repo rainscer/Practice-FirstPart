@@ -34,7 +34,7 @@
                 <td v-if="nowChange == student._id"><input type="checkbox" v-model="changePr"></td>
                 <td v-if="nowChange != student._id">{{student.mark}}</td>
                 <td v-if="nowChange == student._id"><input v-model="changeMark"></td>
-                <td><a v-on:click="deleteStud(student._id)">DeLeTe</a></td>
+                <td><a v-on:click.prevent="deleteStud(student._id)" v-show="student.group==getCurrentUser.group">DeLeTe</a></td>
                 <button v-on:click="changeStud(student._id)"><img class="img-pencil" src="1.png"></button>
             </tr>
               
@@ -44,8 +44,8 @@
             <input v-model.trim="add_name"  placeholder="Введите ФИО">
             <select v-model.trim="add_group" >
                 <option value="0"  disabled selected>Выберите группу</option>
-                <option value="1">РПЗ 18 1/9</option>
-                <option value="2">РПЗ 18 2/9</option>
+                <option value="1">RPZ 18 1/9</option>
+                <option value="2">RPZ 18 2/9</option>
             </select>            
             ПР<input v-model.trim="add_pr1" type="checkbox">
             <input v-model.trim="add_mark" placeholder="Введите оценку"  >
@@ -167,6 +167,9 @@ export default{
         computed:{
             getCount(){
                 return this.$store.getters.getCount
+            },
+            getCurrentUser(){
+                return this.$store.getters.getUser
             }
         }    
 }
